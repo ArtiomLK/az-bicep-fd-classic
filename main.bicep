@@ -13,6 +13,7 @@ param fd_n string
 
 @description('The hostname of the backend. Must be an IP address or FQDN.')
 param fd_backend_addr string
+var fd_backend_addr_parsed = split(fd_backend_addr, ',')
 
 var frontEndEndpointName = 'frontEndEndpoint'
 var loadBalancingSettingsName = 'loadBalancingSettings'
@@ -59,14 +60,13 @@ resource frontdoor 'Microsoft.Network/frontDoors@2019-05-01' = {
       }
     ]
 
-    backendPools: [
-      {
-        name: backendPoolName
+    backendPools: [for i in range(0, length(fd_backend_addr_parsed)): {
+        name: 'backendpool-${fd_backend_addr_parsed}'
         properties: {
           backends: [
             {
-              address: fd_backend_addr
-              backendHostHeader: fd_backend_addr
+              address: fd_backend_addr_parsed[i]
+              backendHostHeader: fd_backend_addr_parsed[i]
               httpPort: 80
               httpsPort: 443
               weight: 50
@@ -81,8 +81,7 @@ resource frontdoor 'Microsoft.Network/frontDoors@2019-05-01' = {
             id: resourceId('Microsoft.Network/frontDoors/healthProbeSettings', fd_n, healthProbeSettingsName)
           }
         }
-      }
-    ]
+      }]
 
     routingRules: [
       {
