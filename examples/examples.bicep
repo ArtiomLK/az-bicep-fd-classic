@@ -29,8 +29,8 @@ resource appServicePlan 'Microsoft.Web/serverfarms@2021-03-01' = {
   name: 'plan-azure-bicep-app-service-test'
   location: location
   sku: {
-    name: 'P1V3'
-    tier: 'PremiumV3'
+    name: 'P1V2'
+    tier: 'PremiumV2'
     capacity: plan_enable_zone_redundancy ? 3 : 1
   }
   properties: {
@@ -52,8 +52,8 @@ resource appServicePlanBCDR 'Microsoft.Web/serverfarms@2021-03-01' = {
   name: 'plan-bcdr-azure-bicep-app-service-test'
   location: location_bcdr
   sku: {
-    name: 'P1V3'
-    tier: 'PremiumV3'
+    name: 'P1V2'
+    tier: 'PremiumV2'
     capacity: plan_enable_zone_redundancy ? 3 : 1
   }
   properties: {
