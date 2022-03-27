@@ -79,7 +79,7 @@ module fda '../main.bicep' = {
   params: {
     tags: tags
     fd_n: 'fda-${guid(subscription().id, resourceGroup().id, tags.env)}'
-    fd_backend_addr: '${appA.name}.azurewebsites.net,${appB.name}.azurewebsites.net'
-    fd_backend_addr_n: 'backend-eastus2,backend-centralus'
+    fd_backendpool_backend_addr: '${appA.name}.azurewebsites.net,${appB.name}.azurewebsites.net'
+    fd_backend_addr_n: 'backend-app'
   }
 }

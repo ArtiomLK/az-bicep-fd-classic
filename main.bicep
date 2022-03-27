@@ -12,18 +12,16 @@ param tags object = {}
 param fd_n string
 
 @description('The hostname of the backend. Must be an IP address or FQDN.')
-param fd_backend_addr string
-var fd_backend_addr_parsed = split(fd_backend_addr, ',')
+param fd_backend_pool_backend_addr string
+var fd_backend_pool_backend_addr_parsed = split(fd_backend_pool_backend_addr, ',')
 
-@description('The backendPool backend names.')
-param fd_backend_addr_n string
-var fd_backend_addr_n_parsed = split(fd_backend_addr_n, ',')
+@description('The backendPool names.')
+param fd_backend_pool_n string
 
 var frontEndEndpointName = 'frontEndEndpoint'
 var loadBalancingSettingsName = 'loadBalancingSettings'
 var healthProbeSettingsName = 'healthProbeSettings'
 var routingRuleName = 'routingRule'
-var backendPoolName = 'backendPool'
 
 // ------------------------------------------------------------------------------------------------
 // Deploy FD
@@ -64,20 +62,20 @@ resource frontdoor 'Microsoft.Network/frontDoors@2019-05-01' = {
       }
     ]
 
-    backendPools: [for i in range(0, length(fd_backend_addr_parsed)): {
-        name: fd_backend_addr_n_parsed[i]
+    backendPools: [
+      {
+        name: fd_backend_pool_n
         properties: {
-          backends: [
-            {
-              address: fd_backend_addr_parsed[i]
-              backendHostHeader: fd_backend_addr_parsed[i]
+          backends: [for i in range(0, length(fd_backend_pool_backend_addr_parsed)): {
+
+              address: fd_backend_pool_backend_addr_parsed[i]
+              backendHostHeader: fd_backend_pool_backend_addr_parsed[i]
               httpPort: 80
               httpsPort: 443
               weight: 50
               priority: 1
               enabledState: 'Enabled'
-            }
-          ]
+            }]
           loadBalancingSettings: {
             id: resourceId('Microsoft.Network/frontDoors/loadBalancingSettings', fd_n, loadBalancingSettingsName)
           }
@@ -85,7 +83,8 @@ resource frontdoor 'Microsoft.Network/frontDoors@2019-05-01' = {
             id: resourceId('Microsoft.Network/frontDoors/healthProbeSettings', fd_n, healthProbeSettingsName)
           }
         }
-      }]
+      }
+    ]
 
     routingRules: [
       {
@@ -107,7 +106,7 @@ resource frontdoor 'Microsoft.Network/frontDoors@2019-05-01' = {
             '@odata.type': '#Microsoft.Azure.FrontDoor.Models.FrontdoorForwardingConfiguration'
             forwardingProtocol: 'MatchRequest'
             backendPool: {
-              id: resourceId('Microsoft.Network/frontDoors/backEndPools', fd_n, backendPoolName)
+              id: resourceId('Microsoft.Network/frontDoors/backEndPools', fd_n, fd_backend_pool_n)
             }
           }
           enabledState: 'Enabled'
