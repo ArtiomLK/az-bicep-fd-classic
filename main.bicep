@@ -11,12 +11,12 @@ param tags object = {}
 @maxLength(64)
 param fd_n string
 
-@description('The hostname of the backend. Must be an IP address or FQDN.')
+@description('Front Door BackendPool names')
+param fd_backend_pool_n string
+
+@description('Front Door BackendPool Backends. Must be an IP address or FQDN')
 param fd_backend_pool_backend_addr string
 var fd_backend_pool_backend_addr_parsed = split(fd_backend_pool_backend_addr, ',')
-
-@description('The backendPool names.')
-param fd_backend_pool_n string
 
 var frontEndEndpointName = 'frontEndEndpoint'
 var loadBalancingSettingsName = 'loadBalancingSettings'
