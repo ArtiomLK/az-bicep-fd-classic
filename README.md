@@ -7,7 +7,6 @@
 | Name     | Description                                                                                  | Value                         | Examples                                                             |
 | -------- | -------------------------------------------------------------------------------------------- | ----------------------------- | -------------------------------------------------------------------- |
 | tags     | Az Resources tags                                                                            | object                        | `{ key: value }`                                                     |
-| location | Az Resources deployment location. To get Az regions run `az account list-locations -o table` | string [default: rg location] | `eastus` \| `centralus` \| `westus` \| `westus2` \| `southcentralus` |
 | fd_n     | Front Door Name                                                                              | string [required]             |                                                                      |
 
 ### [Reference Examples][1]
