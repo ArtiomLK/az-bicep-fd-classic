@@ -61,7 +61,7 @@ resource frontdoor 'Microsoft.Network/frontDoors@2019-05-01' = {
     ]
 
     backendPools: [for i in range(0, length(fd_backend_addr_parsed)): {
-        name: 'backendpool-${fd_backend_addr_parsed}'
+        name: 'backendpool-${fd_backend_addr_parsed[i]}'
         properties: {
           backends: [
             {
