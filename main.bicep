@@ -7,7 +7,7 @@ param tags object = {}
 param location string
 
 // ------------------------------------------------------------------------------------------------
-// AGW Configuration parameters
+// FD Configuration parameters
 // ------------------------------------------------------------------------------------------------
 @description('Front Door Name')
 param fd_n string
