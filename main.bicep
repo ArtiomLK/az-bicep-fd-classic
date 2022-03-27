@@ -15,6 +15,10 @@ param fd_n string
 param fd_backend_addr string
 var fd_backend_addr_parsed = split(fd_backend_addr, ',')
 
+@description('The backendPool backend names.')
+param fd_backend_addr_n string
+var fd_backend_addr_n_parsed = split(fd_backend_addr_n, ',')
+
 var frontEndEndpointName = 'frontEndEndpoint'
 var loadBalancingSettingsName = 'loadBalancingSettings'
 var healthProbeSettingsName = 'healthProbeSettings'
@@ -61,7 +65,7 @@ resource frontdoor 'Microsoft.Network/frontDoors@2019-05-01' = {
     ]
 
     backendPools: [for i in range(0, length(fd_backend_addr_parsed)): {
-        name: 'backendpool-${fd_backend_addr_parsed[i]}'
+        name: fd_backend_addr_n_parsed[i]
         properties: {
           backends: [
             {

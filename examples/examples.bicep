@@ -39,7 +39,7 @@ resource appServicePlan 'Microsoft.Web/serverfarms@2021-03-01' = {
 }
 
 resource appA 'Microsoft.Web/sites@2018-11-01' = {
-  name: take('appFdA-${guid(subscription().id, resourceGroup().id, tags.env)}', 60)
+  name: take('appA-${guid(subscription().id, resourceGroup().id, tags.env)}', 60)
   location: location
   tags: tags
   properties: {
@@ -62,7 +62,7 @@ resource appServicePlanBCDR 'Microsoft.Web/serverfarms@2021-03-01' = {
 }
 
 resource appB 'Microsoft.Web/sites@2018-11-01' = {
-  name: take('appFdB-${guid(subscription().id, resourceGroup().id, tags.env)}', 60)
+  name: take('appB-${guid(subscription().id, resourceGroup().id, tags.env)}', 60)
   location: location_bcdr
   tags: tags
   properties: {
@@ -80,5 +80,6 @@ module fda '../main.bicep' = {
     tags: tags
     fd_n: 'fda-${guid(subscription().id, resourceGroup().id, tags.env)}'
     fd_backend_addr: '${appA.name}.azurewebsites.net,${appB.name}.azurewebsites.net'
+    fd_backend_addr_n: 'backend-eastus2,backend-centralus'
   }
 }
