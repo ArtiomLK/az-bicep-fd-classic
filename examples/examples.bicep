@@ -75,10 +75,10 @@ resource appB 'Microsoft.Web/sites@2018-11-01' = {
 // ------------------------------------------------------------------------------------------------
 
 module fda '../main.bicep' = {
-  name: 'fda'
+  name: 'fda-classic'
   params: {
     tags: tags
-    fd_n: 'fda-${guid(subscription().id, resourceGroup().id, tags.env)}'
+    fd_n: 'fda-classic-${guid(subscription().id, resourceGroup().id, tags.env)}'
     fd_backend_pool_n: 'backend-pool-app'
     fd_backend_pool_backend_addr: '${appA.name}.azurewebsites.net,${appB.name}.azurewebsites.net'
   }
