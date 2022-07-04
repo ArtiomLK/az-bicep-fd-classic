@@ -1,4 +1,4 @@
-# Azure Front Door
+# Azure Front Door Classic
 
 [![DEV - Deploy Azure Resource](https://github.com/ArtiomLK/azure-bicep-front-door-classic/actions/workflows/dev.orchestrator.yml/badge.svg?branch=main&event=push)](https://github.com/ArtiomLK/azure-bicep-front-door-classic/actions/workflows/dev.orchestrator.yml)
 
