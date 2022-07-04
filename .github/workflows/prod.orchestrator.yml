@@ -1,7 +1,7 @@
 on: [release]
 
 env:
-  ACR_MODULE_N: fd
+  ACR_MODULE_N: fd-classic
   RG_N: rg-azure-bicep-front-door
 
 name: PROD - Deploy Azure Resource
