@@ -5,7 +5,7 @@ on:
 
 env:
   ACR_MODULE_N: fd-classic
-  RG_N: rg-azure-bicep-front-door
+  RG_N: rg-azure-bicep-front-door-classic
 
 name: DEV - Deploy Azure Resource
 jobs:
