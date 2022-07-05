@@ -20,13 +20,13 @@
 ```bash
 # Create an Azure Resource Group
 az group create \
---name 'rg-azure-bicep-front-door' \
+--name 'rg-azure-bicep-front-door-classic' \
 --location 'eastus2' \
 --tags project=bicephub env=dev
 
 # Deploy Sample Modules
 az deployment group create \
---resource-group 'rg-azure-bicep-front-door' \
+--resource-group 'rg-azure-bicep-front-door-classic' \
 --mode Complete \
 --template-file examples/examples.bicep
 ```
